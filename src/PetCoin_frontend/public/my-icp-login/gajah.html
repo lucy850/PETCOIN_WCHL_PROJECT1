@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CryptoPet - Elephant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: white;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        html {
+            overflow-y: scroll;
+        }
+
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .glow-button {
+            background: linear-gradient(135deg, #bb00ff, #ff0080, #683fff);
+            background-size: 200% 200%;
+            animation: gradientFlow 4s ease infinite;
+            color: white;
+            font-weight: 600;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 0 15px rgba(236, 72, 153, 0.5), 0 0 30px rgba(168, 85, 247, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .glow-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(236, 72, 153, 0.7), 0 0 40px rgba(250, 204, 21, 0.5);
+        }
+
+        @keyframes gradientFlow {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .glass-card {
+            background: rgba(58, 52, 94, 0.5);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 0 30px rgba(171, 86, 226, 0.15);
+        }
+
+        .heart-particle {
+            position: fixed;
+            font-size: 1.5rem;
+            animation: float-up 1.5s ease-out forwards;
+            opacity: 0;
+            transform: translate(-50%, -50%) rotate(0deg);
+            z-index: 1000;
+        }
+
+        @keyframes float-up {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 0) scale(0);
+            }
+
+            25% {
+                opacity: 1;
+                transform: translate(-50%, -100px) scale(1.2);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -200px) scale(0);
+            }
+        }
+
+        .food-item-glow {
+            transition: all 0.2s ease-in-out;
+        }
+
+        .food-item-glow:hover {
+            box-shadow: 0 0 15px rgba(171, 86, 226, 0.5), 0 0 30px rgba(171, 86, 226, 0.4);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="text-white relative z-10 flex flex-col min-h-screen">
+    <canvas id="particle-canvas"></canvas>
+
+    <div class="container mx-auto p-4 md:p-8 relative z-10">
+        <header class="relative flex items-center justify-between mb-10">
+            <h1 class="text-3xl font-bold z-40">CryptoPet</h1>
+            <div class="hidden lg:flex flex-grow justify-center">
+                <nav id="navbarMenu" class="space-x-8 text-white font-medium"></nav>
+            </div>
+            <div class="flex items-center space-x-4 z-40">
+                <div class="bg-violet-900/50 flex items-center px-4 py-2 rounded-full border border-violet-700">
+                    <img src="./png/coin.png" alt="Ikon Koin" class="w-[22px] h-[22px]">
+                    <span id="coinDisplay" class="font-bold text-white ml-[6px] text-sm">0</span>
+                </div>
+                <button id="walletBtn" onclick="connectPlug()"
+                    class="hidden lg:block bg-gradient-to-r from-purple-500 to-indigo-600 text-white text-sm px-4 py-2 rounded-full font-semibold hover:opacity-90 transition-opacity">
+                    Connect Wallet
+                </button>
+                <button id="mobile-menu-button" class="lg:hidden text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-black/70 z-50 flex items-center justify-center">
+            <div class="glass-card w-[90%] max-w-sm p-6 rounded-2xl shadow-lg">
+                <nav class="flex flex-col items-center space-y-4">
+                    <a href="shop.html"
+                        class="block text-white py-2 text-lg w-full text-center hover:bg-purple-700 rounded-lg">Shop</a>
+                    <a href="gacha.html"
+                        class="block text-white py-2 text-lg w-full text-center hover:bg-purple-700 rounded-lg">Gacha</a>
+                    <a href="about.html"
+                        class="block text-white py-2 text-lg w-full text-center hover:bg-purple-700 rounded-lg">About</a>
+                    <div id="mobile-collection-link" class="w-full"></div>
+                    <hr class="w-full border-gray-500 my-2">
+                    <button onclick="connectPlugMobile()"
+                        class="bg-gradient-to-r from-[#AB56E2] to-[#7A5BF5] text-white text-md w-full px-6 py-3 rounded-full font-semibold hover:opacity-90 transition-opacity">
+                        Connect Wallet
+                    </button>
+                </nav>
+            </div>
+        </div>
+
+        <div class="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
+            <div id="petCard"
+                class="bg-[#1E1B3A] bg-opacity-70 p-6 rounded-3xl flex-1 flex flex-col justify-center items-center text-center relative z-20">
+                <div class="flex flex-col items-center">
+                    <div class="relative w-[400px] h-[400px] mb-4">
+                        <img id="petImage" src="./png/gajah 1.png"
+                            class="transition-all duration-300 w-[400px] h-[400px] object-contain cursor-pointer"
+                            onclick="petPet()" />
+                        <img id="hairOverlay" src="" alt="Hair"
+                            class="absolute top-0 left-0 w-[400px] h-[400px] object-contain pointer-events-none hidden" />
+                        <img id="accessoryOverlay" src="" alt="Accessory"
+                            class="absolute top-0 left-0 w-[400px] h-[400px] object-contain pointer-events-none hidden" />
+                        <img id="playToolOverlay" src="" alt="Play Tool"
+                            class="absolute top-0 left-0 w-[400px] h-[400px] object-contain pointer-events-none hidden" />
+                    </div>
+                    <h2 class="font-bold text-xl">Elephant</h2>
+                    <p id="petHint" class="text-sm mt-2 py-2">Click your pet to pet it</p>
+                </div>
+            </div>
+
+            <div class="flex-1 space-y-6">
+                <div class="bg-[#1E1B3A] bg-opacity-70 p-6 rounded-2xl">
+                    <h3 class="text-lg font-semibold mb-3 tracking-wide">Pet Status</h3>
+                    <div>
+                        <label class="text-sm font-medium text-gray-300">Happy</label>
+                        <div class="bg-gray-700 h-3 rounded-full mt-1 mb-3">
+                            <div id="happyBar" class="bg-green-400 h-3 rounded-full transition-all duration-300"
+                                style="width: 80%"></div>
+                        </div>
+                        <label class="text-sm font-medium text-gray-300">Hungry</label>
+                        <div class="bg-gray-700 h-3 rounded-full mt-1">
+                            <div id="hungryBar" class="bg-yellow-400 h-3 rounded-full transition-all duration-300"
+                                style="width: 20%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E1B3A] bg-opacity-70 p-6 rounded-2xl">
+                    <h3 class="text-lg font-semibold mb-4 tracking-wide">Food Store</h3>
+                    <div class="bg-indigo-900/30 p-4 rounded-xl border border-indigo-700">
+                        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                            <div onclick="feedPet()"
+                                class="bg-[#3A345E] p-3 rounded-xl text-center cursor-pointer food-item-glow transition-all duration-200">
+                                <img src="./png/apel.png" class="mx-auto w-[40px]">
+                                <p class="mt-2 text-sm">Apple</p>
+                                <p class="text-xs flex justify-center items-center"><img src="./png/coin.png"
+                                        class="w-4 h-4 mr-1">30</p>
+                            </div>
+                            <div onclick="feedPet()"
+                                class="bg-[#3A345E] p-3 rounded-xl text-center cursor-pointer food-item-glow transition-all duration-200">
+                                <img src="./png/burger.png" class="mx-auto w-[40px]">
+                                <p class="mt-2 text-sm">Burger</p>
+                                <p class="text-xs flex justify-center items-center"><img src="./png/coin.png"
+                                        class="w-4 h-4 mr-1">30</p>
+                            </div>
+                            <div onclick="feedPet()"
+                                class="bg-[#3A345E] p-3 rounded-xl text-center cursor-pointer food-item-glow transition-all duration-200">
+                                <img src="./png/pizza.png" class="mx-auto w-[40px]">
+                                <p class="mt-2 text-sm">Pizza</p>
+                                <p class="text-xs flex justify-center items-center"><img src="./png/coin.png"
+                                        class="w-4 h-4 mr-1">30</p>
+                            </div>
+                            <div onclick="feedPet()"
+                                class="bg-[#3A345E] p-3 rounded-xl text-center cursor-pointer food-item-glow transition-all duration-200">
+                                <img src="./png/kue.png" class="mx-auto w-[40px]">
+                                <p class="mt-2 text-sm">Cake</p>
+                                <p class="text-xs flex justify-center items-center"><img src="./png/coin.png"
+                                        class="w-4 h-4 mr-1">30</p>
+                            </div>
+                            <div onclick="feedPet()"
+                                class="bg-[#3A345E] p-3 rounded-xl text-center cursor-pointer food-item-glow transition-all duration-200">
+                                <img src="./png/cookies.png" class="mx-auto w-[40px]">
+                                <p class="mt-2 text-sm">Cookies</p>
+                                <p class="text-xs flex justify-center items-center"><img src="./png/coin.png"
+                                        class="w-4 h-4 mr-1">30</p>
+                            </div>
+                            <div onclick="feedPet()"
+                                class="bg-[#3A3A5E] p-3 rounded-xl text-center cursor-pointer food-item-glow transition-all duration-200">
+                                <img src="./png/cupcake.png" class="mx-auto w-[40px]">
+                                <p class="mt-2 text-sm">Cupcakes</p>
+                                <p class="text-xs flex justify-center items-center"><img src="./png/coin.png"
+                                        class="w-4 h-4 mr-1">30</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-[#1E1B3A] bg-opacity-70 p-6 rounded-2xl">
+                    <h3 class="text-lg font-semibold mb-4 tracking-wide">Accessories Shop</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <button id="openHairModal"
+                            class="glow-button w-full px-6 py-3 rounded-xl font-medium">Hair</button>
+                        <button id="openAccessoriesModal"
+                            class="glow-button w-full px-6 py-3 rounded-xl font-medium">Accessories</button>
+                        <button id="openPlayToolsModal" class="glow-button w-full px-6 py-3 rounded-xl font-medium">Play
+                            tools</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="hairModal" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-50">
+        <div class="bg-[#1E1B3A] bg-opacity-70 rounded-2xl p-8 w-[90%] max-w-4xl border border-white/10 shadow-2xl">
+            <h2 class="text-2xl font-bold text-center mb-6">Choose Hair</h2>
+            <div id="hairItems" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center"></div>
+            <div class="text-center mt-6">
+                <button id="closeHairModal"
+                    class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="accessoriesModal" class="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center hidden z-50">
+        <div class="bg-purple-900 bg-opacity-90 rounded-2xl p-8 w-[90%] max-w-4xl">
+            <h2 class="2xl font-bold text-center mb-6">Choose Accessories</h2>
+            <div id="accessoriesItems" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center"></div>
+            <div class="text-center mt-6">
+                <button id="closeAccessoriesModal" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-full">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="playToolsModal" class="fixed inset-0 bg-black/60 flex items-center justify-center hidden z-50">
+        <div class="bg-[#1E1B3A] bg-opacity-70 rounded-2xl p-8 w-[90%] max-w-4xl border border-white/10 shadow-2xl">
+            <h2 class="text-2xl font-bold text-center mb-6">Choose Play Tools</h2>
+            <div id="playToolsItems" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center"></div>
+            <div class="text-center mt-6">
+                <button id="closePlayToolsModal"
+                    class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full transition-colors">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="coin.js"></script>
+    <script src="gajah.js"></script>
+    <script>
+        const canvas = document.getElementById("particle-canvas");
+        if (canvas) {
+            const ctx = canvas.getContext("2d");
+            let particlesArray = [];
+            let mouse = {
+                x: null,
+                y: null,
+                radius: 100
+            };
+
+            window.addEventListener('mousemove', function (event) {
+                mouse.x = event.x;
+                mouse.y = event.y;
+            });
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            window.addEventListener("resize", () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+            });
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 2;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+
+                    if (mouse.x !== null && mouse.y !== null) {
+                        const dx = mouse.x - this.x;
+                        const dy = mouse.y - this.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < mouse.radius) {
+                            const forceDirectionX = dx / distance;
+                            const forceDirectionY = dy / distance;
+                            const maxForce = 0.5;
+                            const attractionForce = maxForce * (1 - distance / mouse.radius);
+
+                            this.speedX += attractionForce * forceDirectionX;
+                            this.speedY += attractionForce * forceDirectionY;
+                        }
+                    }
+
+                    if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                    if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+
+                    this.speedX *= 0.98;
+                    this.speedY *= 0.98;
+                }
+                draw() {
+                    ctx.fillStyle = 'rgba(171, 86, 226, 0.7)';
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+
+            function initParticles() {
+                particlesArray = [];
+                for (let i = 0; i < 120; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function animateParticles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let particle of particlesArray) {
+                    particle.update();
+                    particle.draw();
+                }
+                requestAnimationFrame(animateParticles);
+            }
+
+            initParticles();
+            animateParticles();
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // --- Logika untuk Navigasi Dinamis ---
+            const navbar = document.getElementById("navbarMenu");
+            const currentPage = window.location.pathname;
+            const koleksi = JSON.parse(sessionStorage.getItem("koleksiPet") || "[]"); // Menggunakan sessionStorage
+
+            const navClass = (page) => {
+                // Halaman home adalah semua halaman pet, bukan hanya index.html
+                // URL 'ayam.html' saat ini dianggap sebagai 'home' untuk pet ini
+                if (page === 'home' && !currentPage.includes('index') && !currentPage.includes('gacha') && !currentPage.includes('about') && !currentPage.includes('collection')) {
+                    return "text-[#F9C0FF] border-b-2 border-[#F9C0FF] pb-1 font-semibold";
+                }
+                // Untuk halaman lain
+                if (page !== 'home' && currentPage.includes(page)) {
+                    return "text-[#F9C0FF] border-b-2 border-[#F9C0FF] pb-1 font-semibold";
+                }
+                return "hover:text-white pb-1 font-semibold text-gray-300";
+            }
+
+            if (navbar) {
+                navbar.innerHTML = `
+                    <a href="ayam.html" class="${navClass('home')}">Home</a>
+                    <a href="shop.html" class="${navClass('index')}">Shop</a>
+                    <a href="gacha.html" class="${navClass('gacha')}">Gacha</a>
+                    <a href="about.html" class="${navClass('about')}">About</a>
+                    ${koleksi.length > 0 ? `<a href="collection.html" class="${navClass('collection')}">Collection</a>` : ""}
+                `;
+            }
+
+            // --- Logika untuk Modal ---
+            const modals = {
+                hair: document.getElementById('hairModal'),
+                accessories: document.getElementById('accessoriesModal'),
+                playTools: document.getElementById('playToolsModal')
+            };
+
+            const openButtons = {
+                hair: document.getElementById('openHairModal'),
+                accessories: document.getElementById('openAccessoriesModal'),
+                playTools: document.getElementById('openPlayToolsModal')
+            };
+
+            const closeButtons = {
+                hair: document.getElementById('closeHairModal'),
+                accessories: document.getElementById('closeAccessoriesModal'),
+                playTools: document.getElementById('closePlayToolsModal')
+            };
+
+            // Tambahkan event listener untuk mengisi modal saat dibuka
+            openButtons.hair.addEventListener('click', () => {
+                populateShopModal('hair');
+                modals.hair.classList.remove('hidden');
+            });
+            openButtons.accessories.addEventListener('click', () => {
+                populateShopModal('accessories');
+                modals.accessories.classList.remove('hidden');
+            });
+            openButtons.playTools.addEventListener('click', () => {
+                populateShopModal('playTools');
+                modals.playTools.classList.remove('hidden');
+            });
+            
+            Object.keys(closeButtons).forEach(key => closeButtons[key].addEventListener('click', () => modals[key].classList.add('hidden')));
+
+            // --- Logika untuk Menu Mobile ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileCollectionLinkContainer = document.getElementById('mobile-collection-link');
+
+            const toggleMenu = () => {
+                const isHidden = mobileMenu.classList.contains('hidden');
+                if (isHidden) {
+                    if (koleksi.length > 0) {
+                        mobileCollectionLinkContainer.innerHTML = '<a href="collection.html" class="block text-white py-2 text-lg w-full text-center hover:bg-purple-700 rounded-lg">Collection</a>';
+                    } else {
+                        mobileCollectionLinkContainer.innerHTML = '';
+                    }
+                }
+                mobileMenu.classList.toggle('hidden');
+            };
+
+            menuButton.addEventListener('click', toggleMenu);
+
+            mobileMenu.addEventListener('click', (e) => {
+                if (e.target === mobileMenu) {
+                    toggleMenu();
+                }
+            });
+        });
+
+        // Fungsi terpisah untuk wallet di mobile agar menu bisa ditutup setelahnya
+        function connectPlugMobile() {
+            handleConnection(); // Memanggil fungsi handleConnection dari coin.js
+            document.getElementById('mobile-menu').classList.add('hidden');
+        }
+    </script>
+</body>
+
+</html>

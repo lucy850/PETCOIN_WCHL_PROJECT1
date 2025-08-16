@@ -1,8 +1,18 @@
 # `PetCoin`
 
-Welcome to your new `PetCoin` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and to include your own code to speed up the development cycle.
+Welcome to your new `PetCoin` project and to the Internet Computer development community. By default, creating a new project adds this README and some template files to your project directory. You can edit these template files to customize your project and include your own code to speed up the development cycle.
 
-To get started, you might want to explore the project directory structure and the default configuration file. Working with this project in your development environment will not affect any production deployment or identity tokens.
+`PetCoin` is a platform designed to facilitate donations in a secure, transparent, and engaging way. Users can donate to people in need using Plug Wallet, sending ICP tokens directly to the recipient's address. The platform is fully integrated with Internet Identity (ICP login), ensuring that all transactions are traceable and transparent.
+
+To make the donation experience more interactive, `PetCoin` provides collectible pet cards and accessories as rewards for donors. Each donation earns the donor a card or accessory, which can be collected, displayed, and even traded within the platform. Additionally, a gacha system is implemented to make collecting pets more fun: donors can spend PetCoins to perform a “gacha pull” and receive random pets or accessories. This gamification encourages users to engage more with the platform while supporting real causes.
+
+## Project structure
+
+- `PetCoin-WCHL-Project/` — Root project directory
+- `src/PetCoin_backend/` — Backend canister written in Motoko, handling PetCoin logic, donation tracking, and user data.
+- `src/PetCoin_frontend/public/my-icp-login/` — Frontend using Vite + JS/HTML/CSS, handling wallet integration, ICP login, gacha UI, and collection display.
+- `dfx.json` — DFX configuration file for canisters and local replica.
+
 
 To learn more before you start working with `PetCoin`, see the following documentation available online:
 
@@ -11,49 +21,36 @@ To learn more before you start working with `PetCoin`, see the following documen
 - [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
 - [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
 
+## Running the project locally
 If you want to start working on your project right away, you might want to try the following commands:
 
-```bash
-cd PetCoin/
-dfx help
-dfx canister --help
-```
-
-## Running the project locally
-
-If you want to test your project locally, you can use the following commands:
+1. Start the Internet Computer replica and deploy backend canisters:
 
 ```bash
-# Starts the replica, running in the background
 dfx start --background
-
-# Deploys your canisters to the replica and generates your candid interface
 dfx deploy
 ```
 
-Once the job completes, your application will be available at `http://localhost:4943?canisterId={asset_canister_id}`.
-
-If you have made changes to your backend canister, you can generate a new candid interface with
+2. Run the frontend development server:
 
 ```bash
-npm run generate
+cd src/PetCoin_frontend/public/my-icp-login
+npm install
+npm run dev
 ```
-
-at any time. This is recommended before starting the frontend development server, and will be run automatically any time you run `dfx deploy`.
-
-If you are making frontend changes, you can start a development server with
+3. Stopping the Internet Computer replica:
 
 ```bash
-npm start
+dfx stop
 ```
 
-Which will start a server at `http://localhost:8080`, proxying API requests to the replica at port 4943.
+## Features overview
+- ICP Login: Secure login via Internet Identity, ensuring transparent donor authentication.
+- Plug Wallet Integration: Users can top up, check balances, and donate using ICP tokens.
+- Pet & Accessory Cards: Donors receive collectible cards representing pets and accessories as rewards for donations.
+- Gacha System: Donors can spend PetCoins to perform gacha pulls and receive random pets or accessories, making donations more engaging.
+- Collection Display: Users can view their acquired pets and accessories, with options to manage and showcase their collection.
+- Responsive Frontend: Mobile and desktop friendly interface, with interactive elements like glowing buttons, particle effects, and modal popups.
 
-### Note on frontend environment variables
 
-If you are hosting frontend code somewhere without using DFX, you may need to make one of the following adjustments to ensure your project does not fetch the root key in production:
-
-- set`DFX_NETWORK` to `ic` if you are using Webpack
-- use your own preferred method to replace `process.env.DFX_NETWORK` in the autogenerated declarations
-  - Setting `canisters -> {asset_canister_id} -> declarations -> env_override to a string` in `dfx.json` will replace `process.env.DFX_NETWORK` with the string in the autogenerated declarations
-- Write your own `createActor` constructor
+`PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
