@@ -36,7 +36,7 @@ sh -ci "$(curl -sS https://internetcomputer.org/install.sh)"
 Copy the project code to your local machine:
 
 ```bash
-git clone https://github.com/username/PetCoin-Project.git
+git clone https://github.com/lucy850/PETCOIN_WCHL_PROJECT1
 ```
 
 3. Installing Dependencies
@@ -92,3 +92,4 @@ dfx stop
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
