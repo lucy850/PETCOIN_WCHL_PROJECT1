@@ -24,25 +24,61 @@ To learn more before you start working with `PetCoin`, see the following documen
 ## Running the project locally
 If you want to start working on your project right away, you might want to try the following commands:
 
-1. Start the Internet Computer replica and deploy backend canisters:
+1. Installation and Setup
+First, make sure you have the DFINITY SDK and Node.js installed.
+If you don't have it, install the DFINITY SDK with this command:
+
+```bash
+sh -ci "$(curl -sS https://internetcomputer.org/install.sh)"
+```
+
+2. Cloning the Repository
+Copy the project code to your local machine:
+
+```bash
+git clone https://github.com/username/PetCoin-Project.git
+```
+
+3. Installing Dependencies
+
+```bash
+npm install
+npm install @dfinity/agent@0.15.7 @dfinity/auth-client@0.15.7 @dfinity/candid@0.15.7 @dfinity/identity@0.15.7 --legacy-peer-deps
+```
+
+4. Running and Deploying
 
 ```bash
 dfx start --background
 dfx deploy
 ```
 
-2. Run the frontend development server:
+5. Generate Backend Declarations
+Run only once to generate backend declarations
 
 ```bash
-cd src/PetCoin_frontend/public/my-icp-login
-npm install
+dfx generate PetCoin_backend
+```
+
+6. Running the Frontend
+
+```bash
 npm run dev
 ```
-3. Stopping the Internet Computer replica:
+
+7. Build frontend for production (output in dist/, use for hosting/deployment)
+
+```bash
+npm run build
+```
+
+8. Stopping the Replica
 
 ```bash
 dfx stop
 ```
+
+
 
 ## Features overview
 - ICP Login: Secure login via Internet Identity, ensuring transparent donor authentication.

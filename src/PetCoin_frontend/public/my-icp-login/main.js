@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         loginButton.textContent = "Logout";
         loginButton.onclick = async () => {
             await authClient.logout();
+            loginButton.textContent = "Login"; // 🔥 tombol balik jadi Login
             location.reload();
         };
         return;
@@ -64,6 +65,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 loginButton.textContent = "Logout";
                 loginButton.onclick = async () => {
                     await authClient.logout();
+                    loginButton.textContent = "Login"; // 🔥 tombol balik jadi Login
                     location.reload();
                 };
             },
