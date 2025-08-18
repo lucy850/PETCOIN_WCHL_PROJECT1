@@ -63,6 +63,7 @@ dfx generate PetCoin_backend
 6. Running the Frontend
 
 ```bash
+cd src/PetCoin_frontend/public/my-icp-login
 npm run dev
 ```
 
@@ -87,6 +88,7 @@ dfx stop
 - Gacha System: Donors can spend PetCoins to perform gacha pulls and receive random pets or accessories, making donations more engaging.
 - Collection Display: Users can view their acquired pets and accessories, with options to manage and showcase their collection.
 - Responsive Frontend: Mobile and desktop friendly interface, with interactive elements like glowing buttons, particle effects, and modal popups.
+
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
