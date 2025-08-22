@@ -176,11 +176,12 @@ dfx stop
 
 
 ## Functional Demo Video
-Watch the pitch+demo of PetCoin in action: [Demo+Pitch Video](youtu.be/4bsYGeVdy-k)
+Watch the pitch+demo of PetCoin in action: [Demo+Pitch Video](https://youtu.be/4bsYGeVdy-k)
 
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
 
 
 
