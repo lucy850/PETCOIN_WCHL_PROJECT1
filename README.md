@@ -93,9 +93,9 @@ dfx stop
 - Internet Identity: `uxrrr-q7777-77774-qaaaq-cai`
 
 ### Mainnet Deployment
-- PetCoin_frontend: _(akan ditambahkan setelah deploy ke mainnet)_
-- PetCoin_backend: _(akan ditambahkan setelah deploy ke mainnet)_
-- Internet Identity: _(akan ditambahkan setelah deploy ke mainnet)_
+- PetCoin_frontend: _(to be added after deployment to mainnet)_
+- PetCoin_backend: _(to be added after deployment to mainnet)_
+- Internet Identity: _(to be added after deployment to mainnet)_
 
 
 ## ICP Features Used
@@ -181,6 +181,7 @@ Watch the pitch+demo of PetCoin in action: [Demo+Pitch Video](https://youtu.be/4
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
 
 
 
