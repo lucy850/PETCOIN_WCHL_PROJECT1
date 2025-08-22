@@ -148,7 +148,7 @@ dfx stop
 - Internet Identity (II): Provides secure authentication.
 - Plug Wallet: Facilitates ICP payments and balance checks.
 
-## Future Plans
+### Future Plans
 - Launch PetCoin on the ICP mainnet for real donations
 - Show donation trends, transparency reports, and impact tracking
 - Convert pets into tradeable NFTs on the ICP ecosystem
@@ -160,7 +160,7 @@ dfx stop
 
 
 ## Architecture Diagram
-![Architecture Diagram](./src/PetCoin_frontend/public/my-icp-login/png/architecture diagram.png)
+![Architecture Diagram](./src/PetCoin_frontend/public/my-icp-login/png/architecture-diagram.png)
 
 
 
@@ -177,5 +177,6 @@ dfx stop
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
 
 
