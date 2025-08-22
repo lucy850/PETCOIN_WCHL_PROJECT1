@@ -160,12 +160,12 @@ dfx stop
 
 
 ## Architecture Diagram
-![Architecture Diagram](./png/architecture.png)
+![Architecture Diagram](./src/PetCoin_frontend/public/my-icp-login/png/architecture.png)
 
 
 
 ## User Flow
-![User Flow Diagram](./png/user-flow.png)
+![User Flow Diagram](./src/PetCoin_frontend/public/my-icp-login/png/user-flow.png)
 
 - User visits landing page
 - Login via Internet Identity
@@ -177,3 +177,4 @@ dfx stop
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
