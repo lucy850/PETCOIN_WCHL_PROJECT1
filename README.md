@@ -207,6 +207,12 @@ Displays the top-up interface where users can add PetCoins using ICP. Shows bala
 
 ![Top Up](./src/PetCoin_frontend/public/my-icp-login/png/top-up.png)
 
+### 4. Gacha
+Shows the gacha interface where users can spend PetCoins to get random pets or accessories.  
+
+![Gacha](./src/PetCoin_frontend/public/my-icp-login/png/gacha.png)
+![Gacha](./src/PetCoin_frontend/public/my-icp-login/png/gacha1.png)
+
 
 ## Project Code
 
@@ -256,3 +262,4 @@ Ensures that frontend state reflects backend data, including coins and pet colle
 Handles the purchase of a pet and synchronizes it with the backend.
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
