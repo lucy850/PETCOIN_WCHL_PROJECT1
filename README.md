@@ -140,6 +140,13 @@ dfx deploy --network ic
 - User Experience: Providing intuitive UI/UX for both new donors and returning users
 - Testing & Debugging: Difficulty in testing canisters locally and ensuring accurate state across frontend and backend
 
+## Target Solution
+Many people want to donate to those in need, but traditional donation platforms often lack engagement or rewards, making the process less appealing.
+PetCoin solves this by:
+- Offering a secure and transparent donation system on the Internet Computer using ICP and Plug Wallet.
+- Adding gamification: donors can collect unique virtual pets through a gacha system.
+- Making donations fun, interactive, and rewarding, encouraging more frequent participation.
+
 ## How It Works
 1. Default Flow
    If no custom wallet is set, the canister principal automatically receives all top-ups and donations.
@@ -349,3 +356,4 @@ Handles the purchase of a pet and synchronizes it with the backend.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
