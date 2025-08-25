@@ -6,13 +6,6 @@ Welcome to your new `PetCoin` project and to the Internet Computer development c
 
 To make the donation experience more interactive, `PetCoin` provides collectible pet cards and accessories as rewards for donors. Each donation earns the donor a card or accessory, which can be collected, displayed, and even traded within the platform. Additionally, a gacha system is implemented to make collecting pets more fun: donors can spend PetCoins to perform a “gacha pull” and receive random pets or accessories. This gamification encourages users to engage more with the platform while supporting real causes.
 
-## Project structure
-
-- `PetCoin-WCHL-Project/` — Root project directory
-- `src/PetCoin_backend/` — Backend canister written in Motoko, handling PetCoin logic, donation tracking, and user data.
-- `src/PetCoin_frontend/public/my-icp-login/` — Frontend using Vite + JS/HTML/CSS, handling wallet integration, ICP login, gacha UI, and collection display.
-- `dfx.json` — DFX configuration file for canisters and local replica.
-
 
 To learn more before you start working with `PetCoin`, see the following documentation available online:
 
@@ -20,6 +13,25 @@ To learn more before you start working with `PetCoin`, see the following documen
 - [SDK Developer Tools](https://internetcomputer.org/docs/current/developer-docs/setup/install)
 - [Motoko Programming Language Guide](https://internetcomputer.org/docs/current/motoko/main/motoko)
 - [Motoko Language Quick Reference](https://internetcomputer.org/docs/current/motoko/main/language-manual)
+
+## Project structure
+
+- `PetCoin-WCHL-Project/` — Root project directory
+- `src/PetCoin_backend/` — Backend canister written in Motoko, handling PetCoin logic, donation tracking, and user data.
+- `src/PetCoin_frontend/public/my-icp-login/` — Frontend using Vite + JS/HTML/CSS, handling wallet integration, ICP login, gacha UI, and collection display.
+- `dfx.json` — DFX configuration file for canisters and local replica.
+
+```bash
+📂 src
+ ┣ 📂 PetCoin_backend       → Motoko canister (business logic & token management)
+ ┣ 📂 PetCoin_frontend
+ ┃ ┣ 📂 public
+ ┃ ┃ ┣ 📂 my-icp-login      → Internet Identity login system
+ ┃ ┃ ┃ ┗ 📂 png             → Login icons & images
+ ┃ ┗ 📂 src                 → React/JS frontend (App.jsx, components, integration logic)
+ ┗ 📂 PetCoin_assets        → Logos, styles, extra images
+
+```
 
 ## Running the project locally
 To run this project, you must use Linux or WSL2 on Windows. The DFINITY SDK and Motoko canisters are optimized for Linux environments. Running on pure Windows or macOS may cause errors. If you want to start working on your project right away, you might want to try the following commands:
@@ -127,6 +139,17 @@ dfx deploy --network ic
 - Scalability: Ensuring the backend canister can handle many users and donations simultaneously
 - User Experience: Providing intuitive UI/UX for both new donors and returning users
 - Testing & Debugging: Difficulty in testing canisters locally and ensuring accurate state across frontend and backend
+
+## How It Works
+1. Default Flow
+   If no custom wallet is set, the canister principal automatically receives all top-ups and donations.
+2. Custom Flow
+   You can set a platform wallet (any principal) to receive the main payments.
+3. Revenue Flow
+   - User Top-Up / Donation → goes to the Platform Wallet
+   - Platform Wallet distributes the funds:
+     - 95% → Donation to Pet / Creator
+     - 5% → Kept as Platform Fee
     
  
 ## System Architecture Description
@@ -163,7 +186,56 @@ dfx deploy --network ic
 
 ## Architecture Diagram
 ![Architecture Diagram](./src/PetCoin_frontend/public/my-icp-login/png/architecture-diagram.png)
+```bash
+          ┌────────────────────────────┐
+          │        Frontend            │
+          │   (React/HTML/JS UI)       │
+          │                            │
+          │ 1. Login with ICP (II)     │
+          │ 2. Connect Plug Wallet     │
+          │ 3. Donate / Top-up PetCoin │
+          └─────────────▲──────────────┘
+                        │
+                        │
+      ┌─────────────────┼─────────────────┐
+      │                 │                 │
+      ▼                 ▼                 ▼
+┌──────────────┐  ┌──────────────┐  ┌───────────────────┐
+│ Internet      │  │ Plug Wallet  │  │ PetCoin Canister  │
+│ Identity (II) │  │ (ICP Ledger) │  │ (Motoko Smart     │
+│ Auth System   │  │              │  │  Contract)        │
+└─────▲─────────┘  └──────▲──────┘  └───────────▲───────┘
+      │ Principal ID       │ ICP Transfer       │ Verify & Store
+      │                    │                    │
+      ▼                    ▼                    ▼
+ ┌───────────────────────────────────────────────────────┐
+ │           Internet Computer Blockchain Network         │
+ └───────────────────────────────────────────────────────┘
 
+```
+
+### Motoko
+```bash
+        +----------------+
+        |  Internet      |
+        |  Identity (II) |
+        +--------+-------+
+                 |
+                 v
+        +----------------+
+        |  msg.caller    |   (Principal unik)
+        +----------------+
+                 |
+     +-----------+------------+
+     |                        |
+     v                        v
++------------+        +--------------------+
+| users map  |        | PetCoin Backend    |
+| (username, |        | - topUps           |
+|  bio)      |        | - donations        |
++------------+        +--------------------+
+
+```
 
 
 ## User Flow
@@ -277,5 +349,3 @@ Handles the purchase of a pet and synchronizes it with the backend.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
