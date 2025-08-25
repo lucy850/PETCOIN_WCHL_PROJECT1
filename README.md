@@ -175,12 +175,15 @@ dfx stop
 - Responsive Frontend: Mobile and desktop friendly interface, with interactive elements like glowing buttons, particle effects, and modal popups.
 
 
-## Functional Demo Video
-Watch the pitch+demo of PetCoin in action: [Demo+Pitch Video](https://youtu.be/4bsYGeVdy-k)
+## Functional Demo Video and Pitch Video
+Watch the Demo of PetCoin in action: [Demo Video](https://youtu.be/4bsYGeVdy-k)
+Watch the Pitch Deck of PetCoin in action: [Pitch Video](https://www.youtube.com/watch?v=22wb9m9vGqM)
+
 
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
 
 
 
