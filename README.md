@@ -180,10 +180,38 @@ dfx stop
 Watch the Demo of PetCoin in action: [Demo Video](https://youtu.be/4bsYGeVdy-k)
 Watch the Pitch Deck of PetCoin in action: [Pitch Video](https://www.youtube.com/watch?v=22wb9m9vGqM)
 
+## Screenshots
+
+### 1. Landing Page
+The main landing page of `PetCoin` showcases all key features in one view:  
+
+- **Donation Section:** Users can send ICP and receive PetCoin rewards.  
+- **Donation Recipient Workflow:** Recipients receive notifications and ICP balance updates, while donors can track the donation status.  
+- **Blog / Information Section:** Displays platform updates, donation tips, and feature highlights.  
+
+![Landing Page](./src/PetCoin_frontend/public/my-icp-login/png/landing-page1.png)
+![Landing Page](./src/PetCoin_frontend/public/my-icp-login/png/landing-page2.png)
+![Landing Page](./src/PetCoin_frontend/public/my-icp-login/png/landing-page3.png)
+
+### 2. Pets Display
+Shows the user's pet collection and acquired accessories. Users can view, manage, and showcase their collected pets as rewards from donations or gacha pulls.  
+
+![Pets Display](./src/PetCoin_frontend/public/my-icp-login/png/pet-display.png)
+![Pets Display](./src/PetCoin_frontend/public/my-icp-login/png/pet-display1.png)
+![Pets Display](./src/PetCoin_frontend/public/my-icp-login/png/pet-display2.png)
+![Pets Display](./src/PetCoin_frontend/public/my-icp-login/png/pet-display3.png)
+![Pets Display](./src/PetCoin_frontend/public/my-icp-login/png/pet-display4.png)
+
+### 3. Top Up
+Displays the top-up interface where users can add PetCoins using ICP. Shows balance input, approval, and confirmation.  
+
+![Top Up](./src/PetCoin_frontend/public/my-icp-login/png/top-up.png)
+
 
 
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
 
 
 
