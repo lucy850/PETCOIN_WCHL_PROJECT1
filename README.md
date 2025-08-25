@@ -84,6 +84,23 @@ npm run build
 dfx stop
 ```
 
+## Deployment to Mainnet
+1. Create a Secure Identity
+```bash
+dfx identity new (your-secure-identity)
+dfx identity use (your-secure-identity)
+```
+2. Check Cycles
+Verify your identity has enough cycles to deploy canisters:
+```bash
+dfx ledger account-id
+```
+3. Deploy Canisters to Mainnet
+```bash
+dfx deploy --network ic
+
+```
+
 
 ## Canister IDs
 
@@ -91,13 +108,7 @@ dfx stop
 - PetCoin_frontend: `u6s2n-gx777-77774-qaaba-cai`
 - PetCoin_backend: `uzt4z-lp777-77774-qaabq-cai`
 - Internet Identity: `uxrrr-q7777-77774-qaaaq-cai`
-
-### Mainnet Deployment
-
-- PetCoin_frontend: Local development environment (http://localhost:3000)  
-- PetCoin_backend: Local canister using `dfx start`  
-- Internet Identity: Simulated login for demo purposes (not integrated with Mainnet)
-
+  
 
 ## ICP Features Used
 - Internet Identity (II) for secure, passwordless login
@@ -262,4 +273,5 @@ Ensures that frontend state reflects backend data, including coins and pet colle
 Handles the purchase of a pet and synchronizes it with the backend.
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
+
 
