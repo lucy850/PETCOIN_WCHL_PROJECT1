@@ -208,16 +208,51 @@ Displays the top-up interface where users can add PetCoins using ICP. Shows bala
 ![Top Up](./src/PetCoin_frontend/public/my-icp-login/png/top-up.png)
 
 
+## Project Code
 
+### Creates an AuthClient instance to handle Internet Identity login for the user.
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code.png)
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code2.png)
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code3.png)
+This code is the core integration between the web frontend and the ICP canister backend, enabling secure login and subsequent user actions.
+
+### INTERFACE LEDGER ICP
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code4.png)
+This snippet shows reading ICP balances from a ledger canister, which is a key blockchain integration feature.
+
+### PETCOIN BACKEND CANISTER INTEGRATION
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code5.png)
+Shows frontend can interact fully with backend canister to manage pets, coins, and items
+
+### FUNCTION TO CHECK ICP BALANCE
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code6.png)
+Demonstrates that can read the user’s ICP balance securely from the blockchain.
+
+### CONNECT PLUG WALLET
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code7.png)
+Demonstrates that web app can authenticate users via Plug Wallet, a key blockchain integration feature.
+
+### TOP-UP & SYNC BACKEND
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code8.png)
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code9.png)
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code10.png)
+Demonstrates secure blockchain transactions, wallet integration, and backend synchronization, which is a key feature of your project.
+
+### MODAL & UI COIN
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code11.png)
+Ensures smooth and interactive user experience for viewing and topping up coins.
+
+### WALLET BUTTON
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code12.png)
+- If the wallet is connected (plugConnected in sessionStorage), show “Top Up” and open the top-up modal.
+- If not connected, show “Connect Wallet” and redirect to the connection page.
+
+### SYNC BACKEND AFTER CONNECT
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code13.png)
+Ensures that frontend state reflects backend data, including coins and pet collection.
+
+### BUY PET & SYNC BACKEND
+![Project Code](./src/PetCoin_frontend/public/my-icp-login/png/code14.png)
+Handles the purchase of a pet and synchronizes it with the backend.
 
 `PetCoin` combines secure blockchain transactions with gamified interactions to make donating fun, transparent, and rewarding. It’s designed to motivate users to contribute to real causes while enjoying the collectible and interactive experience.
-
-
-
-
-
-
-
-
-
-
